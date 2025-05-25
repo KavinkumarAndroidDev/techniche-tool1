@@ -409,10 +409,7 @@ export const GeneratorForm: React.FC<GeneratorFormProps> = ({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={handleTestAPI}>
-          Test API Connection
-        </Button>
+      <CardFooter className="flex justify-end">
         <Button onClick={handleGenerate}>Generate Post</Button>
       </CardFooter>
     </Card>
