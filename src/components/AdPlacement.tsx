@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -7,7 +6,22 @@ interface AdPlacementProps {
   adSlot?: string; // Google AdSense ad slot ID
 }
 
-export const AdPlacement: React.FC<AdPlacementProps> = ({ position, adSlot }) => {
+export const AdPlacement: React.FC<AdPlacementProps> = ({ position }) => {
+  const getAdSlot = () => {
+    switch (position) {
+      case 'top':
+        return '9830748782';
+      case 'sidebar':
+        return '5316195804';
+      case 'middle':
+        return '4003114131';
+      case 'bottom':
+        return '3997560492';
+      default:
+        return '';
+    }
+  };
+
   const getAdDimensions = () => {
     switch (position) {
       case 'top':
@@ -37,48 +51,23 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({ position, adSlot }) =>
   };
 
   useEffect(() => {
-    // Initialize Google AdSense when component mounts
-    if (adSlot && window.adsbygoogle) {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (error) {
-        console.error('AdSense error:', error);
-      }
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (error) {
+      console.error('AdSense error:', error);
     }
-  }, [adSlot]);
+  }, []);
 
-  // If adSlot is provided, render actual Google AdSense ad
-  if (adSlot) {
-    return (
-      <div className={`${position === 'top' || position === 'middle' || position === 'bottom' ? 'container mx-auto px-4 py-4' : ''}`}>
-        <ins
-          className={`adsbygoogle ${getAdDimensions()}`}
-          style={{ display: 'block' }}
-          data-ad-client="ca-pub-XXXXXXXXXX" // Replace with your AdSense publisher ID
-          data-ad-slot={adSlot}
-          data-ad-format={getAdFormat()}
-          data-full-width-responsive="true"
-        />
-      </div>
-    );
-  }
-
-  // Fallback: Show placeholder for development
   return (
     <div className={`${position === 'top' || position === 'middle' || position === 'bottom' ? 'container mx-auto px-4 py-4' : ''}`}>
-      <Card className={`${getAdDimensions()} border-dashed border-2 border-[#E5E7EB]`}>
-        <CardContent className="h-full flex items-center justify-center">
-          <div className="text-center text-[#9CA3AF]">
-            <p className="font-inter text-sm">Advertisement Space</p>
-            <p className="font-inter text-xs mt-1">
-              {position === 'top' && 'Banner Ad (728x90)'}
-              {position === 'sidebar' && 'Rectangle Ad (300x250)'}
-              {position === 'middle' && 'Leaderboard Ad (728x90)'}
-              {position === 'bottom' && 'Footer Ad (728x90)'}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      <ins
+        className={`adsbygoogle ${getAdDimensions()}`}
+        style={{ display: 'block' }}
+        data-ad-client="ca-pub-6442174528661612"
+        data-ad-slot={getAdSlot()}
+        data-ad-format={getAdFormat()}
+        data-full-width-responsive="true"
+      />
     </div>
   );
 };
