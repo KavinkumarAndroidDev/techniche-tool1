@@ -186,17 +186,17 @@ export const generateLinkedInPost = async (
         long: 1200
       }[length] || 800;
 
-      const prompt = `You are a LinkedIn content generator that uses structured templates to create high-performing LinkedIn posts based on user intent. Output only the final post in the format: Hook + Body + CTA (question), followed by relevant hashtags.
+      const prompt = `You are a LinkedIn content generator that uses proven psychological templates to craft high-performing LinkedIn posts tailored to the user's intent. Output only the final post in the format: Hook + Body + CTA (question), followed by relevant hashtags.
 
 Generate a LinkedIn post in the format:
 
 Hook line (MUST follow one of the 12 psychological hook templates below)
 
-Post body (skimmable, minimal emojis, personalized, must answer the hook clearly)
+Post body (skimmable, clear, personalized, minimal fluff, minimal emojis)
 
 Engagement question (relevant, open-ended, encourages comments)
 
-Relevant hashtags (only domain-specific and appropriate)
+Relevant hashtags (only domain-specific and appropriate; no generic or vague ones)
 
 Mandatory Hook Templates (Choose one, do not modify format):
 
@@ -231,8 +231,8 @@ Additional Rules:
 - For ${length} length, keep the post ${length === 'short' ? 'concise and to the point' : length === 'medium' ? 'balanced and informative' : 'detailed and comprehensive'}
 - Limit to 2700 characters max
 - No explanation
-- No headings
-- Only output the post`;
+- No section headings like “Hook,” “Body,” or “CTA”
+- Output ONLY the final LinkedIn post`;
 
       const response = await fetch(`${API_URL}?key=${GEMINI_API_KEY}`, {
         method: 'POST',
